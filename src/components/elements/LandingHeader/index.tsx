@@ -12,8 +12,10 @@ export interface LandingHeaderRootProps
   size?: Size;
   /** Adiciona borda inferior */
   bordered?: boolean;
-  /** Classe adicional */
+  /** Fixa o header no topo (sticky, permanece no fluxo) */
   sticky?: boolean;
+  /** Fixa o header no topo removendo-o do fluxo (sobrepõe o conteúdo) */
+  fixed?: boolean;
   /** Largura máxima do container central (ex.: max-w-7xl) */
   maxWidthClassName?: string;
 }
@@ -22,6 +24,7 @@ const Root: React.FC<LandingHeaderRootProps> = ({
   size = "md",
   bordered = false,
   sticky = true,
+  fixed = false,
   className,
   children,
   ...rest
@@ -30,7 +33,7 @@ const Root: React.FC<LandingHeaderRootProps> = ({
     <div
       className={clsx(
         "w-full flex justify-center bg-background text-background z-80 py-1",
-        sticky && "sticky top-0",
+        fixed ? "fixed inset-x-0 top-0" : sticky && "sticky top-0",
         bordered && "border-b border-foreground/10",
         className
       )}

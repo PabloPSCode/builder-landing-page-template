@@ -13,6 +13,7 @@ export const homePageMock = {
     ctaLabel: "AGENDAR CONSULTA",
     imageUrl:
       "/mocks/home-page-images/home-02.jpg",
+    videoUrl: "/videos/house.mp4",
   },
   browse: {
     eyebrow: "NAVEGUE PELAS COLEÇÕES",

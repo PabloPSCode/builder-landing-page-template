@@ -74,7 +74,7 @@ export default function Home() {
       <LandingHeader.Root
         size="md"
         bordered
-        sticky
+        fixed
         className="z-50 bg-background/95 backdrop-blur"
       >
         <LandingHeader.Left>
@@ -132,8 +132,9 @@ export default function Home() {
       <main className="flex flex-col">
         <HeroSection
           size="full"
+          backgroundVideoLocalPath={homePageMock.hero.videoUrl}
           backgroundImageLocalPath={homePageMock.hero.imageUrl}
-          sectionClassName="relative min-h-[88vh] !items-start !justify-end !px-4 !py-12 md:!py-20"
+          sectionClassName="relative min-h-[72vh] !items-start !justify-end !px-4 !py-12 md:!py-20"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-[#1c140f]/75 via-[#2f241c]/45 to-[#1a140f]/20" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#1a130f]/70 via-transparent to-transparent" />
@@ -157,7 +158,7 @@ export default function Home() {
                 <Button
                   label={homePageMock.hero.ctaLabel}
                   variant="filled"
-                  className="rounded-none bg-primary-500 px-8 py-4 text-[11px] font-semibold tracking-[0.24em] text-[#fff9f1] hover:opacity-90"
+                  className="rounded-none bg-primary-500 px-8 py-4 text-white text-[11px] font-semibold tracking-[0.24em] hover:opacity-90"
                 />
               </div>
             </RevealContainer>

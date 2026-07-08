@@ -2,6 +2,7 @@
 
 import clsx from "clsx";
 import type { FC, ReactNode } from "react";
+import ReactPlayer from "react-player";
 
 interface HeroSectionProps {
   /** Tamanho da largura da seção */
@@ -14,6 +15,8 @@ interface HeroSectionProps {
   buttonText?: string;
   /** URL da imagem de fundo */
   backgroundImageLocalPath?: string;
+  /** URL do vídeo de fundo (tem prioridade sobre a imagem de fundo) */
+  backgroundVideoLocalPath?: string;
   /** Classes adicionais para customização da seção */
   sectionClassName?: string;
   /** Classes adicionais para customização do título */
@@ -34,6 +37,7 @@ export const HeroSection: FC<HeroSectionProps> = ({
   subtitle,
   buttonText,
   backgroundImageLocalPath,
+  backgroundVideoLocalPath,
   sectionClassName,
   titleClassName,
   subtitleClassName,
@@ -45,20 +49,41 @@ export const HeroSection: FC<HeroSectionProps> = ({
     <section
       className={clsx(
         size === "full" ? "w-full" : "w-full max-w-7xl mx-auto",
-        "flex flex-col items-center px-8 py-12",
+        "relative flex flex-col items-center px-8 py-12",
         "bg-cover bg-center",
         sectionClassName
       )}
       style={
-        backgroundImageLocalPath
+        !backgroundVideoLocalPath && backgroundImageLocalPath
           ? { backgroundImage: `url(${backgroundImageLocalPath})` }
           : undefined
       }
     >
+      {backgroundVideoLocalPath && (
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <ReactPlayer
+            wrapper="div"
+            src={backgroundVideoLocalPath}
+            playing
+            loop
+            muted
+            playsInline
+            width="100%"
+            height="100%"
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+            }}
+            className="!absolute !inset-0 !w-full !h-full !max-w-none !max-h-none pointer-events-none [&_video]:!object-cover"
+          />
+        </div>
+      )}
       {title && (
         <h1
           className={clsx(
-            "text-xl sm:text-2xl md:text-3xl font-semibold text-center mb-2 text-foreground",
+            "relative z-10 text-xl sm:text-2xl md:text-3xl font-semibold text-center mb-2 text-foreground",
 
             titleClassName
           )}
@@ -69,7 +94,7 @@ export const HeroSection: FC<HeroSectionProps> = ({
       {subtitle && (
         <h2
           className={clsx(
-            "text-base sm:text-lg  text-foreground/60 font-regular font-secondary text-center",
+            "relative z-10 text-base sm:text-lg  text-foreground/60 font-regular font-secondary text-center",
             subtitleClassName
           )}
         >
@@ -80,7 +105,7 @@ export const HeroSection: FC<HeroSectionProps> = ({
       {buttonText && (
         <button
           className={clsx(
-            "mt-4 bg-primary-500 rounded-md py-2 px-4",
+            "relative z-10 mt-4 bg-primary-500 rounded-md py-2 px-4",
             buttonClassName
           )}
           onClick={onButtonClick}
